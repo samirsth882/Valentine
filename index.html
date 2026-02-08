@@ -2,83 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Rose Day 🌹</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: Arial, sans-serif;
     }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateY(-10vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .card-container {
+      z-index: 2;
+      text-align: center;
+    }
+
     .card {
       background: white;
-      padding: 50px 40px;
-      border-radius: 20px;
-      text-align: center;
+      padding: 45px 40px;
+      border-radius: 22px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 25px;
     }
-    .message {
-      font-size: 36px;
+
+    .text {
+      font-size: 26px;
       font-weight: bold;
+      line-height: 1.4;
     }
+
     .rose {
-      font-size: 60px;
-      animation: floatSpin 3s infinite ease-in-out;
-      display: inline-block;
+      font-size: 70px;
+      animation: roseFloat 3s ease-in-out infinite;
     }
-    @keyframes floatSpin {
+
+    @keyframes roseFloat {
       0% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-10px) rotate(15deg); }
-      50% { transform: translateY(0) rotate(0deg); }
-      75% { transform: translateY(10px) rotate(-15deg); }
+      50% { transform: translateY(-10px) rotate(15deg); }
       100% { transform: translateY(0) rotate(0deg); }
     }
+
     .buttons {
+      margin-top: 30px;
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-top: 30px;
     }
+
     button {
       border: none;
-      padding: 14px 28px;
+      padding: 14px 30px;
       font-size: 20px;
       border-radius: 30px;
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     #yesBtn {
       background-color: #ff4d6d;
       color: white;
     }
+
     #noBtn {
       background-color: #ccc;
       color: #333;
     }
+
     .love-message {
       display: none;
-      font-size: 32px;
+      font-size: 34px;
       color: #ff4d6d;
       margin-top: 20px;
-    }
-    .card-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
+
+  <!-- Hearts -->
+  <script>
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDelay = Math.random() * 5 + "s";
+      heart.style.fontSize = (20 + Math.random() * 20) + "px";
+      document.body.appendChild(heart);
+    }
+  </script>
+
   <div class="card-container">
     <div class="card">
-      <div class="message">Happy Rose Day SASHA</div>
+      <div class="text">
+        Happy Rose Day SASHA.<br>
+        I love you to the moon and back.<br>
+        Do you love me?
+      </div>
       <div class="rose">🌹</div>
     </div>
 
@@ -91,14 +137,14 @@
   </div>
 
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const loveMessage = document.getElementById('loveMessage');
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const loveMessage = document.getElementById("loveMessage");
     let scale = 1;
 
     yesBtn.onclick = () => {
-      document.querySelector('.buttons').style.display = 'none';
-      loveMessage.style.display = 'block';
+      document.querySelector(".buttons").style.display = "none";
+      loveMessage.style.display = "block";
     };
 
     noBtn.onclick = () => {
@@ -106,6 +152,6 @@
       yesBtn.style.transform = `scale(${scale})`;
     };
   </script>
+
 </body>
 </html>
-
