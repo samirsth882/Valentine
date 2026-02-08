@@ -39,6 +39,7 @@
     .card-container {
       z-index: 2;
       text-align: center;
+      position: relative;
     }
 
     .card {
@@ -82,6 +83,7 @@
       border-radius: 30px;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     #yesBtn {
@@ -101,6 +103,7 @@
       margin-top: 20px;
       font-weight: bold;
     }
+
   </style>
 </head>
 <body>
@@ -136,20 +139,51 @@
     <div class="love-message" id="loveMessage">I love you ❤️</div>
   </div>
 
+  <!-- Optional romantic music -->
+  <audio id="music" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const loveMessage = document.getElementById("loveMessage");
+    const music = document.getElementById("music");
     let scale = 1;
 
+    // Yes button click
     yesBtn.onclick = () => {
       document.querySelector(".buttons").style.display = "none";
       loveMessage.style.display = "block";
+
+      // Create burst hearts
+      for(let i=0;i<30;i++){
+        const h = document.createElement("div");
+        h.innerText="❤️";
+        h.style.position="absolute";
+        h.style.left=(yesBtn.offsetLeft + yesBtn.offsetWidth/2) + "px";
+        h.style.top=(yesBtn.offsetTop + yesBtn.offsetHeight/2) + "px";
+        h.style.fontSize=(15 + Math.random()*20)+"px";
+        h.style.color="#ff4d6d";
+        document.body.appendChild(h);
+        h.animate([
+          { transform: 'translate(0,0) scale(1)', opacity:1 },
+          { transform: `translate(${(Math.random()-0.5)*200}px,${-(Math.random()*200)}px) scale(1.5)`, opacity:0 }
+        ], { duration: 1500, easing: 'ease-out' });
+        setTimeout(()=>{h.remove()},1500);
+      }
     };
 
+    // No button click → runs away and makes Yes bigger
     noBtn.onclick = () => {
       scale += 0.3;
       yesBtn.style.transform = `scale(${scale})`;
+
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random()*maxX + "px";
+      noBtn.style.top = Math.random()*maxY + "px";
     };
   </script>
 
